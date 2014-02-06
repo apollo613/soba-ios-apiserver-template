@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Backbone Example</title>
+
+  <style type="text/css">
+    #new-form-modal textarea {
+      height: 100px;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-default" role="navigation">
+  <div class="navbar-header">
+    <a class="navbar-brand" href="#">Backbone Example</a>
+  </div>
+</nav>
+
+<div class="container">
+  <div id="content">
+    <!-- content appear here -->
+    This text will be deleted
+  </div>
+</div>
+
+<!-- lib scripts -->
+
+<script type="text/javascript" src="/lib/jquery.js"></script>
+<script type="text/javascript" src="/lib/underscore.js"></script>
+<script type="text/javascript" src="/lib/backbone.js"></script>
+
+<link rel="stylesheet" href="/css/bootstrap.css">
+<script src="/lib/bootstrap.js"></script>
+
+<!-- temlates -->
+
+<script type="text/template" id="post-template">
+  <h3><%= title %></h3>
+  <span><%= author %></span>
+  <p><%= body %></p>
+  <a href="#comments">Comments</a> | <a href="#delete" class="text-danger">Delete</a>
+</script>
+
+<script type="text/template" id="posts-template">
+  <h1>Posts Homepage</h1>
+  <a href="#newpost">Create post</a>
+  <div id="posts"></div>
+</script>
+
+<script type="text/template" id="new-post-template">
+  <!--<div class="modal fade">-->
+    <div class="modal-dialog">
+      <div class="modal-content">
+        
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">New Post</h4>
+        </div>
+
+        <div class="modal-body">
+          <form role="form">
+            <div class="form-group">
+              <label for="input-title">Title</label>
+              <input type="text" class="form-control" name="input-title" placeholder="Enter title" autofocus="autofocus">
+            </div>
+            <div class="form-group">
+              <label for="input-author">Author</label>
+              <input type="text" class="form-control" name="input-author" placeholder="Enter author">
+            </div>
+            <div class="form-group">
+              <label for="text-body">Body</label>
+              <textarea class="form-control" name="text-body" placeholder="Enter post"></textarea>
+            </div>
+          </form>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="new-post-save">Save changes</button>
+        </div>
+
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  <!-- </div> --><!-- /.modal -->
+</script>
+
+<!-- scripts -->
+
+<script type="text/javascript" src="/js/models/post.js"></script>
+<script type="text/javascript" src="/js/collections/posts.js"></script>
+
+<script type="text/javascript" src="/js/models/comment.js"></script>
+<script type="text/javascript" src="/js/collections/comments.js"></script>
+
+<script type="text/javascript" src="/js/views/post.js"></script>
+<script type="text/javascript" src="/js/views/posts.js"></script>
+<script type="text/javascript" src="/js/views/newpost.js"></script>
+
+<script type="text/javascript">
+
+var posts = new App.Collection.Posts();
+var postsView = new App.View.Posts({collection: posts})
+$('#content').html( postsView.render().el );
+posts.fetch();
+
+</script>
+
+</body>
+</html>
